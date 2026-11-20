@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Quadern de camp dels bolets comestibles i toxics de la zona de Riudecanyes (Baix Camp).">
+<style>body{margin:0}img{max-width:100%}</style>
+<title>Bolets de Riudecanyes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: quadern de camp d'una sola columna de lectura; les fitxes van en graella de 1 a 3 columnes, cadascuna amb una franja de color que diu si es menja o no. */
+:root{
+  --bg:#f1f4ec; --surface:#ffffff; --ink:#1b251f; --muted:#56635a; --line:#d3dacd;
+  --accent:#b8501a; --ok:#256b3d; --care:#8a5d00; --tox:#b3261e; --dead:#6d0f17;
+  --ok-bg:#e1f0e3; --care-bg:#f6ebcd; --tox-bg:#f9e0dc; --dead-bg:#f1cfd0;
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#131915; --surface:#1c241f; --ink:#e7ece5; --muted:#9ca89f; --line:#303b34;
+  --accent:#f0935a; --ok:#7bd096; --care:#e6b94a; --tox:#ff9087; --dead:#ff7078;
+  --ok-bg:#1c3324; --care-bg:#3a2f12; --tox-bg:#3f1d1a; --dead-bg:#4a151a; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#131915; --surface:#1c241f; --ink:#e7ece5; --muted:#9ca89f; --line:#303b34;
+  --accent:#f0935a; --ok:#7bd096; --care:#e6b94a; --tox:#ff9087; --dead:#ff7078;
+  --ok-bg:#1c3324; --care-bg:#3a2f12; --tox-bg:#3f1d1a; --dead-bg:#4a151a; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:17px/1.5 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+.read{max-width:68ch}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
+h1{font-size:clamp(2.2rem,6vw,3.6rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.5rem,3.5vw,2.1rem);font-weight:800}
+h3{font-size:1.35rem;font-weight:600}
+p{margin:0}
+.eyebrow{font-size:.8rem;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);font-weight:700}
+header{display:flex;flex-direction:column;gap:12px}
+.lede{font-size:1.15rem;color:var(--muted)}
+section{display:flex;flex-direction:column;gap:18px}
+.stop{background:var(--dead-bg);border-left:6px solid var(--dead);padding:18px 20px;border-radius:4px;display:flex;flex-direction:column;gap:10px}
+.stop h2{font-size:1.3rem;color:var(--dead)}
+.plan{background:var(--ok-bg);border-left:6px solid var(--ok);padding:18px 20px;border-radius:4px;display:flex;flex-direction:column;gap:10px}
+.plan h2{font-size:1.3rem;color:var(--ok)}
+ul,ol{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:5px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px}
+nav{display:flex;flex-wrap:wrap;gap:8px}
+nav a{color:var(--ink);text-decoration:none;border:1px solid var(--line);background:var(--surface);padding:7px 13px;border-radius:999px;font-weight:600;font-size:.95rem}
+nav a:hover,nav a:focus-visible{border-color:var(--accent);outline:none}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px}
+.check{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.check svg{width:100%;height:auto;max-height:110px}
+.check b{font-family:var(--display);font-size:1.05rem}
+.check span{color:var(--muted);font-size:.95rem}
+.anat{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px;align-items:center}
+.anat svg{width:100%;height:auto;max-width:440px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+svg text{font-family:var(--body);font-size:15px;fill:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:20px;align-items:start}
+.card{background:var(--surface);border:1px solid var(--line);border-top:6px solid var(--c);border-radius:6px;overflow:hidden;min-width:0}
+.lv-ok{--c:var(--ok);--cb:var(--ok-bg)} .lv-care{--c:var(--care);--cb:var(--care-bg)} .lv-tox{--c:var(--tox);--cb:var(--tox-bg)} .lv-dead{--c:var(--dead);--cb:var(--dead-bg)}
+.ph{display:grid;gap:2px;background:var(--line)}
+.ph.n2{grid-template-columns:1fr 1fr}
+.ph img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+.ph.n2 img{aspect-ratio:1/1}
+.cb{padding:16px 18px 14px;display:flex;flex-direction:column;gap:8px}
+.pill{align-self:flex-start;background:var(--cb);color:var(--c);font-weight:700;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;padding:3px 10px;border-radius:999px}
+.sci{font-style:italic;color:var(--muted);font-size:.95rem}
+h4{margin:6px 0 0;font:700 .78rem/1.2 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.card ul{font-size:.98rem}
+.card p{font-size:.98rem}
+.rule{background:var(--cb);padding:10px 12px;border-radius:4px;margin-top:6px}
+.credit{font-size:.75rem !important;color:var(--muted)}
+.fig{margin:4px 0 0;border:2px solid var(--tox);border-radius:4px;overflow:hidden}
+.fig img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover}
+.fig figcaption{font-size:.85rem;padding:8px 10px;background:var(--tox-bg)}
+.legend{display:flex;flex-wrap:wrap;gap:8px}
+.tel{font-family:var(--display);font-weight:800;font-size:1.5rem;user-select:all}
+table{border-collapse:collapse;width:100%;font-size:.98rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.scroll{overflow-x:auto}
+footer{color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);padding-top:18px}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<header>
+  <span class="eyebrow">Quadern de camp · Baix Camp · finals de novembre</span>
+  <h1>Bolets de Riudecanyes</h1>
+  <p class="lede read">Què pots trobar a les pinedes i alzinars de la zona, com distingir-ho i què no has de tocar. Pensat per a una primera sortida.</p>
+  <nav aria-label="Seccions">
+    <a href="#abans">Abans de sortir</a><a href="#mirar">Com mirar un bolet</a><a href="#comestibles">Comestibles</a><a href="#toxics">Tòxics</a><a href="#riscos">Riscos</a><a href="#emergencia">Si et trobes malament</a>
+  </nav>
+</header>
+
+<section id="abans">
+  <div class="two">
+    <div class="stop">
+      <h2>Aquest catàleg no n'hi ha prou per menjar-ne</h2>
+      <p>Cap guia, foto o aplicació permet a un principiant estar segur d'un bolet. Els bolets canvien molt segons l'edat, la pluja i el lloc, i alguns mortals s'assemblen a comestibles corrents.</p>
+      <p><b>Cull amb el catàleg, però no mengis res que no hagi vist en persona algú que hi entén:</b> un boletaire veterà del poble, una societat micològica o una farmàcia que ofereixi el servei.</p>
+      <p><b>Davant del dubte, no es menja.</b></p>
+    </div>
+    <div class="plan">
+      <h2>Pla per a avui</h2>
+      <p>Busca només els quatre bolets marcats com a <b>bons per començar</b>. Tots tenen un tret que no es pot confondre:</p>
+      <ul>
+        <li><b>Rovelló o pinetell:</b> llet taronja o vinosa. La «llet» és el líquid que degota del bolet quan en trenques o talles un tros.</li>
+        <li><b>Llengua de bou:</b> agulles sota el barret. Són punxetes toves i curtes, com els pèls d'un raspall, que ocupen el lloc de les làmines.</li>
+        <li><b>Camagroc:</b> embut marró amb cama groga i buida. Vol dir que la cama és un tub: si la talles o l'obres amb els dits, per dins no hi ha carn.</li>
+        <li><b>Molleric:</b> esponja groga sota el barret, sota pins. L'«esponja» és una capa tova plena de foradets petits (porus), en lloc de làmines.</li>
+      </ul>
+      <p>La resta, fes-los una foto i deixa'ls al bosc.</p>
+    </div>
+  </div>
+  <div class="read" style="display:flex;flex-direction:column;gap:10px">
+    <h2>Què esperar ara a Riudecanyes</h2>
+    <p>El terme és de muntanya baixa mediterrània: <b>pinedes de pi blanc</b>, taques d'<b>alzinar</b>, brolles i antics conreus d'olivera i avellaner, amb sòls sobretot àcids de granit i sauló. Per això hi dominen els bolets de pineda.</p>
+    <p>A finals de novembre és temps de <b>rovellons tardans, fredolics, llengües de bou i mollerics</b>. Tot depèn de si ha plogut les dues o tres setmanes anteriors: sense pluja no hi haurà gairebé res. Busca on la humitat dura més:</p>
+    <ul>
+      <li><b>Obagues:</b> els vessants que miren al nord. Hi toca poc el sol, el terra s'hi manté humit i sovint hi ha molsa.</li>
+      <li><b>Fondos:</b> les parts baixes i enclotades entre dues carenes, on s'acumulen l'aigua i la fullaraca.</li>
+      <li><b>Vores de barrancs i torrents</b>, sense baixar a la llera.</li>
+    </ul>
+    <p>Les pinedes dels voltants del pantà són un bon punt de partida: camina pels vessants ombrívols amb pins, no per la vora de l'aigua, que no té bosc. També les pinedes i alzinars que pugen cap a Escornalbou i l'Argentera. Mira sota els pins, a les clarianes amb herba i molsa, i a les vores dels camins. Descarta els solells secs i pedregosos.</p>
+  </div>
+</section>
+
+<section id="mirar">
+  <h2>Com mirar un bolet</h2>
+  <p class="read">Abans de mirar el color, fes sempre aquestes comprovacions. Són les que separen les famílies perilloses de les altres.</p>
+  <div class="anat">
+    <svg viewBox="0 0 440 400" role="img" aria-label="Dibuix d'una amanita amb les parts assenyalades: barret, làmines, anella, cama i volva">
+      <path d="M70 150 Q220 -10 370 150 Q220 175 70 150Z" fill="var(--ok-bg)" stroke="var(--ink)" stroke-width="2.5"/>
+      <path d="M70 150 Q220 205 370 150 Q220 175 70 150Z" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>
+      <g stroke="var(--ink)" stroke-width="1" fill="none"><path d="M110 160 L200 168"/><path d="M140 168 L205 170"/><path d="M330 160 L240 168"/><path d="M300 168 L235 170"/><path d="M170 173 L210 172"/><path d="M270 173 L230 172"/></g>
+      <path d="M203 172 L198 330 Q220 340 242 330 L237 172Z" fill="var(--surface)" stroke="var(--ink)" stroke-width="2.5"/>
+      <path d="M200 210 Q160 235 175 255 Q220 235 265 255 Q280 235 240 210Z" fill="var(--care-bg)" stroke="var(--ink)" stroke-width="2"/>
+      <path d="M170 320 Q150 300 178 296 L198 318 L242 318 L262 296 Q292 300 272 322 Q280 372 220 374 Q160 372 170 320Z" fill="var(--dead-bg)" stroke="var(--dead)" stroke-width="2.5"/>
+      <path d="M20 330 L160 330 M282 330 L420 330" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 5" fill="none"/>
+      <g stroke="var(--muted)" stroke-width="1.2"><path d="M300 70 L340 40"/><path d="M320 163 L372 200"/><path d="M262 235 L330 250"/><path d="M200 285 L110 270"/><path d="M175 350 L110 362"/></g>
+      <text x="344" y="38">Barret</text><text x="356" y="218">Làmines</text><text x="334" y="256">Anella</text><text x="62" y="266">Cama</text>
+      <text x="20" y="368" style="font-weight:700;fill:var(--dead)">Volva (sac)</text>
+      <text x="300" y="322" style="font-size:12px;fill:var(--muted)">nivell del terra</text>
+    </svg>
+    <div class="read" style="display:flex;flex-direction:column;gap:10px">
+      <h3>La regla que evita les morts</h3>
+      <p><b>Làmines blanques + anella + volva = amanita.</b> No la mengis mai, sigui del color que sigui. La farinera borda, que és la que mata, compleix les tres coses.</p>
+      <p>La volva sol quedar enterrada. Per això <b>no tallis el bolet arran de terra</b>: fes palanca amb el ganivet i treu-lo sencer, amb la base. Si hi ha un sac, ja ho saps.</p>
+      <p>Segona regla: <b>cap bolet petit i marró</b>, i cap «apagallums» de barret més petit que un pam.</p>
+    </div>
+  </div>
+  <h3>Gira'l: què hi ha sota el barret?</h3>
+  <div class="checks">
+    <div class="check"><svg viewBox="0 0 200 100" aria-hidden="true"><path d="M10 40 Q100 -10 190 40 Q100 70 10 40Z" fill="var(--care-bg)" stroke="var(--ink)" stroke-width="2"/><g stroke="var(--ink)" stroke-width="1.3"><path d="M100 60 L30 44"/><path d="M100 60 L50 50"/><path d="M100 60 L72 54"/><path d="M100 60 L128 54"/><path d="M100 60 L150 50"/><path d="M100 60 L170 44"/></g><rect x="90" y="56" width="20" height="40" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/></svg><b>Làmines</b><span>Fulls prims com pàgines d'un llibre. Aquí hi ha comestibles i <b>tots els mortals</b>. Màxima prudència.</span></div>
+    <div class="check"><svg viewBox="0 0 200 100" aria-hidden="true"><path d="M10 40 Q100 -10 190 40 Q100 70 10 40Z" fill="var(--care-bg)" stroke="var(--ink)" stroke-width="2"/><g fill="var(--ink)"><circle cx="45" cy="46" r="2"/><circle cx="62" cy="50" r="2"/><circle cx="80" cy="53" r="2"/><circle cx="120" cy="53" r="2"/><circle cx="138" cy="50" r="2"/><circle cx="155" cy="46" r="2"/><circle cx="70" cy="44" r="2"/><circle cx="130" cy="44" r="2"/><circle cx="100" cy="48" r="2"/></g><rect x="90" y="56" width="20" height="40" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/></svg><b>Porus (esponja)</b><span>Foradets petits. Són els mollerics i els ceps. Cap és mortal a la zona; evita els de porus vermells.</span></div>
+    <div class="check"><svg viewBox="0 0 200 100" aria-hidden="true"><path d="M10 40 Q100 -10 190 40 Q100 62 10 40Z" fill="var(--care-bg)" stroke="var(--ink)" stroke-width="2"/><g stroke="var(--ink)" stroke-width="1.6"><path d="M35 46 v9"/><path d="M48 49 v9"/><path d="M61 51 v9"/><path d="M74 53 v9"/><path d="M126 53 v9"/><path d="M139 51 v9"/><path d="M152 49 v9"/><path d="M165 46 v9"/></g><rect x="88" y="52" width="24" height="44" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/></svg><b>Agulles</b><span>Punxetes toves que es desprenen. És la llengua de bou. El grup més segur per començar.</span></div>
+    <div class="check"><svg viewBox="0 0 200 100" aria-hidden="true"><path d="M20 14 Q100 34 180 14 Q150 50 112 62 L108 96 L92 96 L88 62 Q50 50 20 14Z" fill="var(--care-bg)" stroke="var(--ink)" stroke-width="2"/><g stroke="var(--ink)" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 30 Q80 50 94 80"/><path d="M75 34 Q92 50 98 76"/><path d="M150 30 Q120 50 106 80"/><path d="M125 34 Q108 50 102 76"/></g></svg><b>Plecs</b><span>Venes gruixudes i arrodonides que baixen per la cama. Són el rossinyol i el camagroc.</span></div>
+  </div>
+  <div class="read">
+    <h3 style="margin-bottom:8px">I tres proves més</h3>
+    <ul>
+      <li><b>Trenca'n un tros.</b> Si surt llet, mira'n el color: només la taronja o vinosa és bona.</li>
+      <li><b>Mira on creix.</b> Sota quin arbre, a terra o sobre fusta, sol o en feixos.</li>
+      <li><b>Olora'l.</b> Farina, albercoc o fruita són pistes que les fitxes esmenten.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="comestibles">
+  <h2>Comestibles que hi pots trobar</h2>
+  <div class="legend"><span class="pill lv-ok" style="background:var(--ok-bg);color:var(--ok)">Bo per començar</span><span class="pill" style="background:var(--care-bg);color:var(--care)">Només amb un expert</span></div>
+  <div class="grid">
+<article class="card lv-ok"><div class="ph n2"><img src="img/lactarius_deliciosus.jpg" alt="Rovelló i pinetell (Lactarius deliciosus)" loading="lazy"><img src="img/lactarius_sanguifluus.jpg" alt="Rovelló i pinetell (Lactarius sanguifluus)" loading="lazy"></div><div class="cb"><span class="pill">Comestible · bo per començar</span><h3>Rovelló i pinetell</h3><p class="sci">Lactarius sanguifluus · Lactarius deliciosus</p><h4>On i quan</h4><p>Sota pins, entre la pinassa i l'herba. Tardor fins a les primeres glaçades. És el bolet més probable a les pinedes de Riudecanyes.</p><h4>Com reconèixer-lo</h4><ul><li>Barret taronja de 5 a 12 cm, amb cercles concèntrics i el centre enfonsat.</li><li>Làmines taronja que baixen una mica per la cama.</li><li>Cama curta, buida per dins, sovint amb clotets.</li><li><b>Prova decisiva:</b> en trencar-lo surt una llet <b>taronja pastanaga</b> (pinetell) o <b>vermell vinós</b> (rovelló).</li><li>Amb el temps i els cops es taca de verd. És normal.</li></ul><h4>No el confonguis amb</h4><p><b>Fals rovelló</b> (<i>Lactarius chrysorrheus</i>): creix sota alzines, és més pàl·lid i la llet és blanca i es torna groga en pocs segons.</p><p class="rule"><b>Regla:</b> Llet taronja o vinosa: endavant. Llet blanca o groga: fora del cistell.</p><p class="credit">Foto: autor no indicat, CC BY-SA 3.0 · Holger Krisp, CC BY 3.0 (Wikimedia Commons)</p></div></article>
+<article class="card lv-ok"><div class="ph n1"><img src="img/hydnum_repandum.jpg" alt="Llengua de bou (Hydnum repandum)" loading="lazy"></div><div class="cb"><span class="pill">Comestible · bo per començar</span><h3>Llengua de bou</h3><p class="sci">Hydnum repandum</p><h4>On i quan</h4><p>Alzinars i pinedes, sovint en fileres o rotllanes. De tardor fins ben entrat l'hivern.</p><h4>Com reconèixer-lo</h4><ul><li><b>Sota el barret no hi ha làmines sinó agulles</b> toves, com un raspall, que es desprenen amb el dit.</li><li>Barret de color crema o taronja pàl·lid, irregular i bonyegut, de 5 a 15 cm.</li><li>Carn blanca, ferma i trencadissa.</li><li>Cama curta i gruixuda, sovint descentrada.</li></ul><h4>No el confonguis amb</h4><p>Cap bolet perillós de la zona té agulles sota el barret. Els exemplars vells amarguen: agafa els joves i rasca'n les agulles.</p><p class="rule"><b>Regla:</b> Si té agulles i és de color crema, és llengua de bou.</p><p class="credit">Foto: D J Kelly, Public domain (Wikimedia Commons)</p></div></article>
+<article class="card lv-ok"><div class="ph n1"><img src="img/craterellus_lutescens.jpg" alt="Camagroc (Craterellus lutescens)" loading="lazy"></div><div class="cb"><span class="pill">Comestible · bo per començar</span><h3>Camagroc</h3><p class="sci">Craterellus lutescens</p><h4>On i quan</h4><p>Pinedes ombrívoles amb molsa, en grups nombrosos. Final de tardor. A Riudecanyes, només als racons més humits i obacs. Abunda més a les Muntanyes de Prades.</p><h4>Com reconèixer-lo</h4><ul><li>Barret petit (2 a 6 cm), marró, en forma d'embut i amb la vora ondulada.</li><li><b>Cama groc-taronja viu, buida</b> com un tub.</li><li><b>Sota el barret no hi ha làmines:</b> és llis o amb venes suaus, de color salmó o taronja.</li><li>Olor afruitada.</li></ul><h4>No el confonguis amb</h4><p>El camagroc és inconfusible, però surt en grups grans entre la molsa i s'acostuma a collir a grapats. Entre ells hi poden créixer altres bolets petits:</p><ul><li><b>Galerina</b> (mortal): color mel, amb <b>làmines</b> de debò i una anella petita a la cama.</li><li><b>Cortinaris petits</b> (alguns mortals): marrons o ataronjats, amb <b>làmines</b> color rovell.</li><li><b>Leòtia o camagroc bord</b> (<i>Leotia lubrica</i>, tòxic lleu): groc verdós, de tacte <b>gelatinós</b>, amb un capet arrodonit en lloc d'embut.</li><li><b>Rossinyol de pi</b> (<i>Craterellus tubaeformis</i>): més grisós i amb plecs marcats. És comestible.</li></ul><figure class="fig"><img src="img/leotia_lubrica.jpg" alt="Leòtia o camagroc bord (Leotia lubrica): cames grogues gelatinoses amb capets arrodonits verdosos" loading="lazy"><figcaption><b>Leòtia (tòxica), no la confonguis:</b> cama groga però massissa i gelatinosa, i un capet arrodonit sense embut. Foto: Holger Krisp, CC BY 3.0 (Wikimedia Commons)</figcaption></figure><h4>Com collir-lo</h4><p><b>D'un en un, i gira'ls tots.</b> Cada exemplar ha de complir tres coses:</p><ul><li>Sota el barret no hi ha làmines: és llis o amb venes suaus.</li><li>La cama és groga o taronja i buida com un tub.</li><li>No té anella.</li></ul><p class="rule"><b>Regla:</b> Embut marró, cama groga i buida, cap làmina. Si un exemplar té làmines fines, llença'l, encara que estigués al mig del grup.</p><p class="credit">Foto: Pau Cabot, CC BY-SA 3.0 (Wikimedia Commons)</p></div></article>
+<article class="card lv-ok"><div class="ph n2"><img src="img/suillus_granulatus.jpg" alt="Molleric o pinetell de calceta (Suillus granulatus)" loading="lazy"><img src="img/suillus_collinitus.jpg" alt="Molleric o pinetell de calceta (Suillus collinitus)" loading="lazy"></div><div class="cb"><span class="pill">Comestible · bo per començar</span><h3>Molleric o pinetell de calceta</h3><p class="sci">Suillus granulatus · Suillus collinitus</p><h4>On i quan</h4><p>Sota pins, sovint a les vores dels camins. Molt comú a les pinedes de pi blanc durant tota la tardor.</p><h4>Com reconèixer-lo</h4><ul><li><b>Sota el barret hi ha una esponja groga de porus</b>, no làmines.</li><li>Barret marró, llefiscós quan és humit. La pell es pela fàcilment.</li><li>Cama groguenca, sense anella, amb granets a la part alta.</li><li>Carn groga i tova, que no canvia de color en tallar-la.</li></ul><h4>No el confonguis amb</h4><p>Altres mollerics, també comestibles. Descarta qualsevol bolet amb porus <b>vermells</b> o que es torni blau intens en tallar-lo.</p><p class="rule"><b>Regla:</b> Agafa només els joves i pela'n la pell del barret, que és laxant. Valor culinari modest.</p><p class="credit">Foto: Holger Krisp, CC BY 3.0 · Paffka, CC BY-SA 3.0 (Wikimedia Commons)</p></div></article>
+<article class="card lv-care"><div class="ph n1"><img src="img/tricholoma_terreum.jpg" alt="Fredolic (Tricholoma terreum)" loading="lazy"></div><div class="cb"><span class="pill">Comestible · només amb un expert</span><h3>Fredolic</h3><p class="sci">Tricholoma terreum</p><h4>On i quan</h4><p>Sota pins, en grups grans. De novembre a gener: ara és la seva època.</p><h4>Com reconèixer-lo</h4><ul><li>Barret gris ratolí de 4 a 8 cm, <b>amb tacte de feltre</b> i un petit mugró al centre.</li><li>Làmines blanques o grisoses, amples i trencadisses.</li><li>Cama blanca, fràgil, <b>sense anella i sense volva</b>.</li><li>Carn prima i blanca, olor molt feble.</li></ul><h4>No el confonguis amb</h4><p><b>Fredolic bord</b> (<i>Tricholoma josserandii</i>): barret llis, olor forta de farina rància, peu rosat a la base. <b>Fredolic metzinós</b> (<i>T. pardinum</i>): gros i robust, amb escates. Les <b>amanites grises</b> joves, que tenen volva.</p><p class="rule"><b>Regla:</b> Hi ha massa bolets grisos semblants. No el mengis si no te l'ha confirmat algú que el coneix.</p><p class="credit">Foto: Strobilomyces, CC BY-SA 3.0 (Wikimedia Commons)</p></div></article>
+<article class="card lv-care"><div class="ph n1"><img src="img/cantharellus_cibarius.jpg" alt="Rossinyol (Cantharellus cibarius)" loading="lazy"></div><div class="cb"><span class="pill">Comestible · només amb un expert</span><h3>Rossinyol</h3><p class="sci">Cantharellus cibarius i afins</p><h4>On i quan</h4><p>Alzinars i suredes, a terra, entre fulles. Primavera i tardor. A finals de novembre ja és escàs.</p><h4>Com reconèixer-lo</h4><ul><li>Tot ell groc rovell d'ou.</li><li><b>Sota el barret té plecs</b> gruixuts i arrodonits, bifurcats, que baixen per la cama. No són làmines fines.</li><li>Carn compacta, blanquinosa, que s'esfilagarsa com pit de pollastre.</li><li>Olor d'albercoc. Creix a terra, mai en feixos sobre fusta.</li></ul><h4>No el confonguis amb</h4><p><b>Gírgola d'olivera</b> (<i>Omphalotus olearius</i>, tòxica): làmines fines de debò, creix en feixos sobre soques. <b>Fals rossinyol</b> (<i>Hygrophoropsis aurantiaca</i>): taronja, làmines fines i atapeïdes, carn tova.</p><p class="rule"><b>Regla:</b> Plecs gruixuts i a terra: rossinyol. Làmines fines o sobre fusta: no.</p><p class="credit">Foto: autor no indicat, CC BY-SA 3.0 (Wikimedia Commons)</p></div></article>
+<article class="card lv-care"><div class="ph n1"><img src="img/hygrophorus_latitabundus.jpg" alt="Llenega negra (Hygrophorus latitabundus)" loading="lazy"></div><div class="cb"><span class="pill">Comestible · només amb un expert</span><h3>Llenega negra</h3><p class="sci">Hygrophorus latitabundus</p><h4>On i quan</h4><p>Pinedes sobre terreny calcari, final de tardor. A Riudecanyes, amb sòls més aviat àcids, és poc freqüent.</p><h4>Com reconèixer-lo</h4><ul><li>Barret de 5 a 12 cm, bru grisenc, <b>cobert d'una bava espessa</b>.</li><li>Làmines blanques, gruixudes, separades, de tacte de cera.</li><li>Cama blanca, grossa i panxuda, també mocosa a la meitat inferior.</li><li>Sense anella membranosa i sense volva.</li></ul><h4>No el confonguis amb</h4><p>Altres llenegues, la majoria comestibles. Mira sempre la base de la cama per descartar una amanita.</p><p class="rule"><b>Regla:</b> Si no és ben mocosa i de làmines blanques i gruixudes, no és llenega.</p><p class="credit">Foto: Paffka, CC BY-SA 3.0 (Wikimedia Commons)</p></div></article>
+<article class="card lv-care"><div class="ph n1"><img src="img/hygrophorus_russula.jpg" alt="Carlet (Hygrophorus russula)" loading="lazy"></div><div class="cb"><span class="pill">Comestible · només amb un expert</span><h3>Carlet</h3><p class="sci">Hygrophorus russula</p><h4>On i quan</h4><p>Alzinars, en grups. Tardor.</p><h4>Com reconèixer-lo</h4><ul><li>Barret carnós de 5 a 15 cm, blanquinós <b>amb taques de color vi</b>.</li><li>Làmines blanques que també es taquen de vi amb l'edat.</li><li>Cama robusta, blanca amb taques vinoses.</li><li>Sense anella i sense volva.</li></ul><h4>No el confonguis amb</h4><p><b>Fals carlet</b> (<i>Entoloma sinuatum</i>, tòxic): barret gris crema <b>sense taques de vi</b>, làmines grogues que es tornen rosa salmó, olor de farina.</p><p class="rule"><b>Regla:</b> Sense taques de color vi no és carlet.</p><p class="credit">Foto: Matt Sherman (Mushroom Observer), CC BY-SA 3.0 (Wikimedia Commons)</p></div></article>
+<article class="card lv-care"><div class="ph n1"><img src="img/macrolepiota_procera.jpg" alt="Apagallums (Macrolepiota procera)" loading="lazy"></div><div class="cb"><span class="pill">Comestible · només amb un expert</span><h3>Apagallums</h3><p class="sci">Macrolepiota procera</p><h4>On i quan</h4><p>Clarianes, marges i vores de bosc. Tardor. A finals de novembre en queden pocs.</p><h4>Com reconèixer-lo</h4><ul><li><b>Molt gros:</b> barret obert de 10 a 30 cm, amb escates marrons i un mugró fosc.</li><li>Cama alta i prima amb <b>dibuix de pell de serp</b> en ziga-zaga.</li><li><b>Anella doble que llisca</b> amunt i avall de la cama.</li><li>Base bulbosa, sense volva. Làmines blanques.</li></ul><h4>No el confonguis amb</h4><p>Les <b>lepiotes petites</b> (mortals) semblen apagallums en miniatura.</p><p class="rule"><b>Regla:</b> Barret obert de menys de 12 cm, anella que no llisca o cama sense ziga-zaga: no el toquis.</p><p class="credit">Foto: Holger Krisp, CC BY 3.0 (Wikimedia Commons)</p></div></article>
+<article class="card lv-care"><div class="ph n1"><img src="img/lycoperdon_perlatum.jpg" alt="Pet de llop (Lycoperdon perlatum)" loading="lazy"></div><div class="cb"><span class="pill">Comestible · només amb un expert</span><h3>Pet de llop</h3><p class="sci">Lycoperdon perlatum</p><h4>On i quan</h4><p>A terra en boscos i marges. Tardor.</p><h4>Com reconèixer-lo</h4><ul><li>Forma de pera, de 3 a 8 cm, blanc.</li><li>Cobert de berrugues petites que marxen en fregar-lo.</li><li>Sense làmines ni barret diferenciat.</li><li>Només és comestible si per dins és <b>blanc pur i uniforme</b>, com un núvol de llaminadura.</li></ul><h4>No el confonguis amb</h4><p>Els <b>ous d'amanita</b> joves (poden ser mortals) i les <b>esclerodermes</b> (dures i negres per dins).</p><p class="rule"><b>Regla:</b> Talla'ls tots de dalt a baix. Si a dins hi veus dibuixat un bolet, o no és blanc pur, llença'l.</p><p class="credit">Foto: Daniel Ullrich, Threedots, CC BY-SA 3.0 (Wikimedia Commons)</p></div></article>
+  </div>
+</section>
+
+<section id="toxics">
+  <h2>Els que has de saber reconèixer per no tocar-los</h2>
+  <div class="legend"><span class="pill" style="background:var(--dead-bg);color:var(--dead)">Mortal</span><span class="pill" style="background:var(--tox-bg);color:var(--tox)">Tòxic</span></div>
+  <div class="grid">
+<article class="card lv-dead"><div class="ph n1"><img src="img/amanita_phalloides.jpg" alt="Farinera borda (Amanita phalloides)" loading="lazy"></div><div class="cb"><span class="pill">Mortal</span><h3>Farinera borda</h3><p class="sci">Amanita phalloides</p><h4>On i quan</h4><p>Alzinars, rouredes i boscos mixtos amb pins. Tardor. És la causa de gairebé totes les morts per bolets a Europa.</p><h4>Com reconèixer-lo</h4><ul><li>Barret de 5 a 15 cm, <b>verd oliva, groguenc o bronze</b>, de vegades gairebé blanc, llis i amb fibres radials fines.</li><li><b>Làmines sempre blanques.</b></li><li><b>Anella</b> blanca que penja com una faldilla.</li><li><b>Volva:</b> la base surt d'un sac blanc, sovint enterrat.</li></ul><h4>Amb què es confon</h4><p>De jove es pot prendre per un pet de llop. Oberta, per una llenega, un verderol o un xampinyó.</p><p class="rule"><b>Per què importa:</b> Mig barret pot matar un adult. Els símptomes triguen de 6 a 24 hores i quan arriben el fetge ja està danyat.</p><p class="credit">Foto: Archenzo, CC BY-SA 3.0 (Wikimedia Commons)</p></div></article>
+<article class="card lv-dead"><div class="ph n1"><img src="img/lepiota_brunneoincarnata.jpg" alt="Lepiotes petites (Lepiota brunneoincarnata)" loading="lazy"></div><div class="cb"><span class="pill">Mortal</span><h3>Lepiotes petites</h3><p class="sci">Lepiota brunneoincarnata i afins</p><h4>On i quan</h4><p>Marges, jardins, pinedes i herbassars. Tardor.</p><h4>Com reconèixer-lo</h4><ul><li>Barret petit, de 3 a 7 cm, amb escates bru rosades en cercles i el centre fosc.</li><li>Làmines blanques.</li><li>Cama amb una anella mal definida i bandes escatoses marrons a sota.</li><li>Sembla un apagallums en miniatura.</li></ul><h4>Amb què es confon</h4><p>L'apagallums, que és molt més gros.</p><p class="rule"><b>Per què importa:</b> Conté el mateix verí que la farinera borda. Cap «apagallums» petit va al cistell.</p><p class="credit">Foto: Strobilomyces, CC BY-SA 3.0 (Wikimedia Commons)</p></div></article>
+<article class="card lv-dead"><div class="ph n1"><img src="img/galerina_marginata.jpg" alt="Galerina (Galerina marginata)" loading="lazy"></div><div class="cb"><span class="pill">Mortal</span><h3>Galerina</h3><p class="sci">Galerina marginata</p><h4>On i quan</h4><p>Sobre fusta morta i soques, sobretot de pi, sovint entre molsa. Tardor i hivern.</p><h4>Com reconèixer-lo</h4><ul><li>Barret petit, de 2 a 5 cm, color mel o marró, amb la vora estriada.</li><li>Làmines ocre o marró.</li><li>Cama prima amb una anella petita, més fosca per sota.</li><li>En grups sobre fusta.</li></ul><h4>Amb què es confon</h4><p>Altres bolets petits marrons de soca que alguna gent cull.</p><p class="rule"><b>Per què importa:</b> Mateix verí que la farinera borda. Cap bolet petit i marró que creixi sobre fusta.</p><p class="credit">Foto: Alan Rockefeller, CC BY-SA 4.0 (Wikimedia Commons)</p></div></article>
+<article class="card lv-dead"><div class="ph n1"><img src="img/cortinarius_orellanus.jpg" alt="Cortinari metzinós (Cortinarius orellanus)" loading="lazy"></div><div class="cb"><span class="pill">Mortal</span><h3>Cortinari metzinós</h3><p class="sci">Cortinarius orellanus</p><h4>On i quan</h4><p>Alzinars, suredes i rouredes sobre sòls àcids, com els de la zona. Tardor.</p><h4>Com reconèixer-lo</h4><ul><li>Barret de 3 a 8 cm, marró ataronjat o lleonat, sec i afeltrat.</li><li>Làmines gruixudes i separades, de color rovell.</li><li>Cama groguenca, sense anella.</li><li>De jove té una teranyina fina entre el barret i la cama.</li></ul><h4>Amb què es confon</h4><p>Bolets marrons o ataronjats de làmines, com alguns rossinyols vells.</p><p class="rule"><b>Per què importa:</b> Destrueix els ronyons. Els símptomes poden trigar de 2 a 15 dies.</p><p class="credit">Foto: Michaelll, CC BY-SA 2.5 (Wikimedia Commons)</p></div></article>
+<article class="card lv-tox"><div class="ph n1"><img src="img/amanita_pantherina.jpg" alt="Pixacà (Amanita pantherina)" loading="lazy"></div><div class="cb"><span class="pill">Tòxic</span><h3>Pixacà</h3><p class="sci">Amanita pantherina</p><h4>On i quan</h4><p>Alzinars i pinedes. Tardor.</p><h4>Com reconèixer-lo</h4><ul><li>Barret marró amb <b>berrugues blanques</b> petites i regulars. Vora estriada.</li><li>Làmines blanques.</li><li>Anella blanca.</li><li>Base en bulb amb un rivet, com un mitjó arromangat.</li></ul><h4>Amb què es confon</h4><p>Altres amanites marrons que alguns experts cullen.</p><p class="rule"><b>Per què importa:</b> Molt tòxic: afecta el sistema nerviós. Barret amb berrugues, anella i bulb vol dir amanita. Deixa-la.</p><p class="credit">Foto: George Chernilevsky, Public domain (Wikimedia Commons)</p></div></article>
+<article class="card lv-tox"><div class="ph n1"><img src="img/amanita_muscaria.jpg" alt="Reig bord (Amanita muscaria)" loading="lazy"></div><div class="cb"><span class="pill">Tòxic</span><h3>Reig bord</h3><p class="sci">Amanita muscaria</p><h4>On i quan</h4><p>Pinedes i boscos de muntanya. A cotes baixes com Riudecanyes és rar.</p><h4>Com reconèixer-lo</h4><ul><li>Barret vermell amb berrugues blanques.</li><li>Làmines i cama blanques.</li><li>Anella blanca i base en bulb amb anells de berrugues.</li><li>La pluja li pot rentar les berrugues i deixar-lo taronja i llis.</li></ul><h4>Amb què es confon</h4><p>Rentat per la pluja pot recordar un ou de reig, que té làmines i cama grogues.</p><p class="rule"><b>Per què importa:</b> Tòxic. És el bolet dels contes: mira'l i deixa'l.</p><p class="credit">Foto: Kieran Roy Powell, CC BY 4.0 (Wikimedia Commons)</p></div></article>
+<article class="card lv-tox"><div class="ph n1"><img src="img/amanita_ovoidea.jpg" alt="Farinot i amanites blanques (Amanita ovoidea)" loading="lazy"></div><div class="cb"><span class="pill">Tòxic</span><h3>Farinot i amanites blanques</h3><p class="sci">Amanita ovoidea · Amanita proxima</p><h4>On i quan</h4><p>Pinedes i alzinars, sobretot en terreny calcari. Tardor.</p><h4>Com reconèixer-lo</h4><ul><li>Bolet molt gros, de 10 a 25 cm, tot blanc.</li><li>Barret i anella amb aspecte de crema o farina.</li><li>Volva gran a la base: blanca en el farinot, <b>ocre o ataronjada</b> en l'<i>Amanita proxima</i>, que danya els ronyons.</li><li>Làmines blanques.</li></ul><h4>Amb què es confon</h4><p>Entre si, i amb altres amanites blanques que són mortals.</p><p class="rule"><b>Per què importa:</b> No mengis cap bolet blanc amb anella i volva.</p><p class="credit">Foto: Archenzo, CC BY-SA 3.0 (Wikimedia Commons)</p></div></article>
+<article class="card lv-tox"><div class="ph n1"><img src="img/omphalotus_olearius.jpg" alt="Gírgola d&#x27;olivera (Omphalotus olearius)" loading="lazy"></div><div class="cb"><span class="pill">Tòxic</span><h3>Gírgola d'olivera</h3><p class="sci">Omphalotus olearius</p><h4>On i quan</h4><p>En feixos al peu de soques i arrels d'olivera, alzina i roure. Molt present en zones d'oliverar com el Baix Camp.</p><h4>Com reconèixer-lo</h4><ul><li>Taronja viu o marró ataronjat.</li><li><b>Làmines fines de debò</b>, que baixen per la cama.</li><li>Creix <b>en feixos</b>, amb les cames unides per la base.</li><li>Sempre sobre fusta, encara que estigui enterrada.</li></ul><h4>Amb què es confon</h4><p>El rossinyol, que té plecs gruixuts i creix solt a terra.</p><p class="rule"><b>Per què importa:</b> Provoca vòmits forts durant hores.</p><p class="credit">Foto: Antonio Abbatiello, Public domain (Wikimedia Commons)</p></div></article>
+<article class="card lv-tox"><div class="ph n1"><img src="img/lactarius_chrysorrheus.jpg" alt="Fals rovelló (Lactarius chrysorrheus)" loading="lazy"></div><div class="cb"><span class="pill">Tòxic</span><h3>Fals rovelló</h3><p class="sci">Lactarius chrysorrheus</p><h4>On i quan</h4><p>Sota alzines i roures. Tardor.</p><h4>Com reconèixer-lo</h4><ul><li>Barret salmó pàl·lid o ocre, amb cercles concèntrics.</li><li>En trencar-lo surt <b>llet blanca que es torna groc sofre</b> en pocs segons.</li><li>Làmines crema.</li><li>Gust picant.</li></ul><h4>Amb què es confon</h4><p>El rovelló i el pinetell.</p><p class="rule"><b>Per què importa:</b> Irrita l'estómac. Trenca sempre un tros de làmina i mira el color de la llet.</p><p class="credit">Foto: Zonda Grattus, CC BY 3.0 (Wikimedia Commons)</p></div></article>
+<article class="card lv-tox"><div class="ph n1"><img src="img/tricholoma_equestre.jpg" alt="Verderol o groguet (Tricholoma equestre)" loading="lazy"></div><div class="cb"><span class="pill">Tòxic</span><h3>Verderol o groguet</h3><p class="sci">Tricholoma equestre</p><h4>On i quan</h4><p>Pinedes sobre terreny sorrenc o de sauló, com el de la zona. Final de tardor.</p><h4>Com reconèixer-lo</h4><ul><li>Barret groc verdós amb el centre més bru.</li><li><b>Làmines groc sofre.</b></li><li>Cama groga, sense anella.</li><li>Sovint mig enterrat i ple de sorra.</li></ul><h4>Amb què es confon</h4><p>S'havia menjat tradicionalment i encara hi ha qui el recomana.</p><p class="rule"><b>Per què importa:</b> Ha causat morts per destrucció muscular. La seva venda està prohibida a Espanya. No el mengis.</p><p class="credit">Foto: autor no indicat, CC BY-SA 3.0 (Wikimedia Commons)</p></div></article>
+<article class="card lv-tox"><div class="ph n1"><img src="img/entoloma_sinuatum.jpg" alt="Fals carlet (Entoloma sinuatum)" loading="lazy"></div><div class="cb"><span class="pill">Tòxic</span><h3>Fals carlet</h3><p class="sci">Entoloma sinuatum</p><h4>On i quan</h4><p>Alzinars i rouredes. Tardor.</p><h4>Com reconèixer-lo</h4><ul><li>Barret de 6 a 15 cm, gris crema, sedós.</li><li>Làmines <b>groguenques que es tornen rosa salmó</b>.</li><li>Cama blanca i robusta, sense anella ni volva.</li><li>Olor forta de farina.</li></ul><h4>Amb què es confon</h4><p>El carlet, la llenega i els fredolics grossos.</p><p class="rule"><b>Per què importa:</b> Provoca gastroenteritis greu. Làmines rosa salmó en un bolet gros i pàl·lid: fora.</p><p class="credit">Foto: Archenzo, CC BY-SA 3.0 (Wikimedia Commons)</p></div></article>
+<article class="card lv-tox"><div class="ph n1"><img src="img/paxillus_involutus.jpg" alt="Paxil enrotllat (Paxillus involutus)" loading="lazy"></div><div class="cb"><span class="pill">Tòxic</span><h3>Paxil enrotllat</h3><p class="sci">Paxillus involutus</p><h4>On i quan</h4><p>Sota diversos arbres, en marges i boscos humits. Tardor.</p><h4>Com reconèixer-lo</h4><ul><li>Barret marró ocre amb <b>la vora molt enrotllada</b> cap a dins.</li><li>Làmines ocre atapeïdes, que baixen per la cama.</li><li>Les làmines es taquen de marró en tocar-les i se separen fàcilment de la carn.</li><li>Cama curta del mateix color.</li></ul><h4>Amb què es confon</h4><p>Lactaris i altres bolets marrons.</p><p class="rule"><b>Per què importa:</b> Pot provocar una reacció greu a la sang, fins i tot després d'haver-lo menjat altres vegades sense problemes.</p><p class="credit">Foto: Petar Milošević, CC BY-SA 4.0 (Wikimedia Commons)</p></div></article>
+  </div>
+</section>
+
+<section id="riscos">
+  <h2>Riscos de la sortida</h2>
+  <div class="two">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <h3>Intoxicació</h3>
+      <ul>
+        <li>És el risc greu. Gairebé totes les intoxicacions són de gent que «estava segura».</li>
+        <li><b>Els trucs populars són falsos.</b> L'all o la cullera de plata que no s'ennegreixen, que el bolet estigui mossegat per animals, que tingui bona olor o bon gust: res d'això indica que sigui comestible. La farinera borda té bon gust.</li>
+        <li>Coure, bullir o assecar <b>no elimina</b> els verins mortals.</li>
+        <li>No barregis espècies dubtoses amb les bones al cistell: un tros de bolet mortal contamina la resta.</li>
+        <li>Tocar un bolet tòxic no és perillós. Renta't les mans abans de menjar.</li>
+      </ul>
+      <h3>Quan els mengis</h3>
+      <ul>
+        <li>Sempre ben cuits, mai crus.</li>
+        <li>El primer cop, poca quantitat i una sola espècie.</li>
+        <li>Guarda un exemplar cru sencer a la nevera durant dos dies. Si algú es troba malament, servirà per identificar-lo.</li>
+        <li>No en donis a criatures, embarassades ni persones grans o malaltes fins que tinguis experiència.</li>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <h3>Al bosc</h3>
+      <ul>
+        <li><b>Caça.</b> És temporada de batudes de senglar, sobretot dijous, caps de setmana i festius. Si veus cartells de batuda, canvia de zona. Porta alguna peça de roba de color viu.</li>
+        <li><b>Perdre's.</b> Mirant a terra es perd l'orientació de seguida. Digues a algú on vas, porta el mòbil carregat i baixa't un mapa sense connexió: hi ha zones sense cobertura.</li>
+        <li><b>Hora.</b> Ara es fa fosc cap a les 17.30 h. Surt del bosc amb marge.</li>
+        <li><b>Terreny.</b> Pendents amb sauló i pinassa que rellisquen. Calçat de muntanya, pantaló llarg, aigua i alguna cosa de menjar.</li>
+        <li><b>Senglars.</b> Si en trobes, no t'hi acostis i deixa'ls pas.</li>
+      </ul>
+      <h3>Bones pràctiques</h3>
+      <ul>
+        <li><b>Cistell</b>, no bossa de plàstic: els bolets hi fermenten i es fan malbé.</li>
+        <li>No remenis la terra amb rasclets ni trenquis els bolets que no coneixes.</li>
+        <li>Bona part del bosc és de propietat privada. Respecta tanques i cartells, i no entris a finques conreades.</li>
+        <li>Cull només el que et menjaràs i deixa els exemplars molt petits o passats.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="emergencia">
+  <div class="stop">
+    <h2>Si algú es troba malament després de menjar bolets</h2>
+    <p>Vòmits, diarrea, mal de panxa, suor, marejos o confusió. <b>No esperis que passi.</b></p>
+    <div class="two">
+      <div><p>Emergències</p><p class="tel">112</p><p>Salut Respon</p><p class="tel">061</p><p>Servei d'Informació Toxicològica (24 h)</p><p class="tel">91 562 04 20</p></div>
+      <ul>
+        <li><b>Si els símptomes comencen més de 6 hores després de menjar, és el senyal més greu.</b> Ves a urgències encara que després et trobis millor: la farinera borda dona una falsa millora abans de la fallada del fetge.</li>
+        <li>Porta-hi les restes dels bolets, crus o cuinats, i fins i tot les peles de la brossa.</li>
+        <li>Avisa tothom que n'hagi menjat, encara que es trobi bé.</li>
+        <li>No prenguis remeis casolans ni et provoquis el vòmit pel teu compte.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="scroll read">
+    <table>
+      <thead><tr><th>Quan comença</th><th>Què sol voler dir</th></tr></thead>
+      <tbody>
+        <tr><td>De 30 minuts a 4 hores</td><td>Intoxicació digestiva o nerviosa. Normalment es resol, però cal atenció mèdica.</td></tr>
+        <tr><td>De 6 a 24 hores</td><td>Possible farinera borda, lepiota o galerina. Urgència vital.</td></tr>
+        <tr><td>De 2 a 15 dies</td><td>Possible cortinari. Dany als ronyons.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="read">
+  <p>Catàleg orientatiu, no exhaustiu: al bosc hi ha centenars d'espècies que aquí no surten. Les fotos són de Wikimedia Commons, amb l'autor i la llicència indicats a cada fitxa; els exemplars reals poden tenir colors i formes força diferents.</p>
+</footer>
+</div>
+</body>
+</html>
